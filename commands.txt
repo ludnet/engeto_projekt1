@@ -1,0 +1,63 @@
+# Commands pouzite v Projektu 1:
+wget https://raw.githubusercontent.com/ENGETO-Academy/Linux-public/main/files/pwlist.csv
+tr -d '\r' < pwlist.csv > pwlist_unix.csv
+sort pwlist_unix.csv > sorted_pwlist.csv
+cut -d',' -f1 sorted_pwlist.csv | uniq -c | awk '$1 >= 50' > valid_generators.txt
+cut -c9- valid_generators.txt > generator_list.txt
+while read -r generator; do
+    grep "^$generator," sorted_pwlist.csv | cut -d',' -f2 | awk 'length($0) >= 8' | wc -l
+done < generator_list.txt > min_length.txt
+while read -r generator; do
+    grep "^$generator," sorted_pwlist.csv | cut -d',' -f2 | grep -E '[a-z]' | wc -l
+done < generator_list.txt > min_lower.txt
+while read -r generator; do
+    grep "^$generator," sorted_pwlist.csv | cut -d',' -f2 | grep -E '[A-Z]' | wc -l
+done < generator_list.txt > min_upper.txt
+while read -r generator; do
+    grep "^$generator," sorted_pwlist.csv | cut -d',' -f2 | grep -E '[0-9]' | wc -l
+done < generator_list.txt > min_digit.txt
+while read -r generator; do
+    grep "^$generator," sorted_pwlist.csv | cut -d',' -f2 | grep -E '[^a-zA-Z0-9]' | wc -l
+done < generator_list.txt > min_special.txt
+while read -r generator; do
+    grep "^$generator," sorted_pwlist.csv | cut -d',' -f2 | cut -c1-3 | sort | uniq -u | wc -l
+done < generator_list.txt > valid_prefix.txt
+while read -r generator; do
+    grep "^$generator," sorted_pwlist.csv | cut -d',' -f2 | rev | cut -c1-3 | sort | uniq -u | wc -l
+done < generator_list.txt > valid_suffix.txt
+
+
+
+# Vygenerovani JSON reportu:
+
+echo '{'
+echo '"name": "Pavel Ludvik", '
+echo '"date":  "'$(date '+%d-%m-%Y/%H:%M')' ", '
+echo '"winner": "winner_generator",'
+echo '"data": ['
+while read -r generator; do
+        total_count=$(grep -c "^$gernerator," sorted_pwlist.csv)
+        min_length=$(grep "^$generator," sorted_pwlist.csv | cut -d ',' -f 2 | awk 'length($0) >= 8' | wc -l)
+        min_lower=$(grep "^$generator," sorted_pwlist.csv | cut -d ',' -f 2 | grep -E '[a-z]' | wc -l)
+        min_upper=$(grep "^$generator," sorted_pwlist.csv | cut -d ',' -f 2 | grep -E '[A-Z]' | wc -l)
+        min_digit=$(grep "^$generator," sorted_pwlist.csv | cut -d ',' -f 2 | grep -E '[0-9]' | wc -l)
+        min_special=$(grep "^$generator," sorted_pwlist.csv | cut -d ',' -f 2 | grep -E '[^a-zA-Z0-9]' | wc -l)
+        valid_prefix=$(grep "^$generator," sorted_pwlist.csv | cut -d ',' -f 2 | cut -c 1-3 |sort | uniq -u | wc -l)
+        valid_suffix=$(grep "^$generator," sorted_pwlist.csv | cut -d ',' -f 2 | rev |cut -c 1-3 |sort | uniq -u | wc -l)
+        score=$(( (min_length == total_count) + (min_lower == total_count) + (min_upper == total_count) + (min_digit == total_count) + (min_special == total_count) + (valid_prefix == total_count) + (valid_suffix == total_count) ))
+echo '{'
+echo '"type": "'$generator'",'
+echo '"total_count": '$total_count','
+echo '"min_length": '$min_length','
+echo '"min_lower": '$min_lower','
+echo '"min_upper": '$min_upper','
+echo '"min_digit": '$min_digit','
+echo '"min_special": '$min_special','
+echo '"valid_prefix": '$valid_prefix','
+echo '"valid_suffix": '$valid_suffix','
+echo '"score": '$score' '
+echo '}'
+done < generator_list.txt | sed '$s/,$//'
+echo ']'
+echo '}'
+} > report.json

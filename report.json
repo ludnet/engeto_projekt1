@@ -1,0 +1,54 @@
+{
+"name": "Pavel Ludvik",
+"date": "28-07-2024/08:52",
+"winner": "Orion1.15",
+
+"type": "Cairo",
+"total_count": 99,
+"min_length": 66,
+"min_lower": 97,
+"min_upper": 94,
+"min_digit": 69,
+"min_special": 52,
+"valid_prefix": 97,
+"valid_suffix": 97,
+"score": 0
+},
+{
+"type": "HernsPW",
+"total_count": 91,
+"min_length": 79,
+"min_lower": 88,
+"min_upper": 88,
+"min_digit": 80,
+"min_special": 59,
+"valid_prefix": 91,
+"valid_suffix": 91,
+"score": 2
+},
+{
+"type": "Orion1.15",
+"total_count": 85,
+"min_length": 85,
+"min_lower": 85,
+"min_upper": 84,
+"min_digit": 73,
+"min_special": 0,
+"valid_prefix": 83,
+"valid_suffix": 85,
+"score": 3
+},
+{
+"type": "PWmk",
+"total_count": 74,
+"min_length": 46,
+"min_lower": 70,
+"min_upper": 71,
+"min_digit": 0,
+"min_special": 49,
+"valid_prefix": 71,
+"valid_suffix": 71,
+"score": 0
+}
+]
+}

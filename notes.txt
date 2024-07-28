@@ -1,0 +1,23 @@
+# Notes - postup v Projektu 1
+
+1. Stahnul jsem soubor pwlist.csv z uvedeneho URL pomoci wget.
+2. Konvertoval jsem CRLF konce radku na LF pomoci tr.
+3. Seradil jsem vzorky podle jmena generatoru pomoci sort.
+4. Spocital jsem pocet vzorku pro kazdy generator a filtroval pouzitim prikazu cut, uniq a awk. [awk jsem pouzil proto,
+   ze mi proste neslo filtrovani pomoci prozatim probranych prikazu tak, abych dostal, co jsem potreboval; vyuzil jsem poznamek
+   z jednoho z kurzu na Udemy, ktery jsem zakoupil a zcasti prosel]
+5. Vytvoril jsem seznam validnich generatoru pomoci cut.
+6. Zkontroloval jsem minimalni delku 8 znaku pomoci awk.
+7. Zkontroloval jsem existenci malych pismen pomoci grep.
+8. Zkontroloval jsem take existenci velkých písmen pomoci grep.
+9. Zkontroloval jsem pritomnost cislic pomoci grep.
+10. Zkontroloval jsem existenci specialnich znaku pomoci grep.
+11. Zkontroloval jsem unikatnost pocatecnich trojic znaku pouzitim prikazu cut, sort a uniq.
+12. Zkontroloval jsem unikatnost koncovych trojic znaku pouzitim prikazu cut, rev, sort a uniq.  [zde jsem opet vyuzil informaci z kurzu
+    z Udemy a pouzil command rev]
+13. Generoval jsem JSON report za pouziti Bash skriptu, ktery pouziva ruzne commands jako grep, cut, awk a wc.
+    [zde jsem musel docela googlit, ale aspon jsem pochytil neco malo ze scriptovani]
+
+# Celkove mi Projekt 1 prisel docela slozity, a to proto, ze vse, co probirame, chce proste vice praxe a bohuzel take casu na "zaziti"
+probiraneho uciva. Me do toho jeste vlezla i rodinna dovolena a tim jsem ztratil pres 1 tyden. Na druhou stranu mne kurz velice bavi
+a nuti "objevovat" i jine cesty k reseni. Je mi jasne, ze znaly clovek by znal vice cest k reseni za mnohem kratsi dobu :-)
